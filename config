@@ -32,14 +32,14 @@ exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Adjust brightness using brightness keys
-bindsym XF86MonBrightnessUp exec --no-startup-id sudo xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec --no-startup-id sudo xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec --no-startup-id sudo xbacklight -inc 1
+bindsym XF86MonBrightnessDown exec --no-startup-id sudo xbacklight -dec 1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -171,8 +171,8 @@ mode "resize" {
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Down resize grow height 1 px or 1 ppt
+        bindsym Up resize shrink height 1 px or 1 ppt
         bindsym Right resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape or $mod+r
@@ -200,9 +200,17 @@ exec picom --vsync --backend glx &
 exec feh --bg-scale ~/Pictures/pang-yuhao.jpg
 
 # Use media keys for audacious
-bindsym XF86AudioPrev exec /usr/bin/audacious -r
-bindsym XF86AudioNext exec /usr/bin/audacious -f
-bindsym XF86AudioPlay exec /usr/bin/audacious -t
+#bindsym XF86AudioPrev exec /usr/bin/audacious -r
+#bindsym XF86AudioNext exec /usr/bin/audacious -f
+#bindsym XF86AudioPlay exec /usr/bin/audacious -t
+
+# Start cmus on /dev/tty2
+exec /usr/bin/cmus
+
+# Use media keys for cmus using cmus-remote
+bindsym XF86AudioPrev exec /usr/bin/cmus-remote -r
+bindsym XF86AudioNext exec /usr/bin/cmus-remote -n
+bindsym XF86AudioPlay exec /usr/bin/cmus-remote -u
 
 # Launch Microsoft Edge
 bindsym $mod+b exec /usr/bin/microsoft-edge-dev
