@@ -189,7 +189,7 @@ bar {
 	position top
         status_command i3status
 	colors {
-		background #324159
+	#	background #324159
 	}
 }
 
@@ -228,3 +228,52 @@ bindsym $mod+x exec /usr/bin/away
 
 # Launch PCManFM
 bindsym $mod+m exec /usr/bin/pcmanfm
+
+# Set inner/outer gaps
+gaps inner 5
+gaps outer 3
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+
+# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps.
+# Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current 
+# workspace)
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+	bindsym o	mode "$mode_gaps_outer"
+	bindsym i 	mode "$mode_gaps_inner"
+	bindsym Return	mode "default"
+	bindsym Escape	mode "default"
+}
+
+mode "$mode_gaps_inner" {
+	bindsym plus	gaps inner current plus 1
+	bindsym minus	gaps inner current minus 1
+	bindsym 0	gaps inner current set 0
+
+	bindsym Shift+plus	gaps inner all plus 1
+	bindsym Shift+minus	gaps inner all minus 1
+	bindsym Shift+0		gaps inner all set 0
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+	bindsym plus	gaps outer current plus 1
+	bindsym minus	gaps outer current minus 1
+	bindsym 0	gaps outer current set 0
+
+	bindsym Shift+plus	gaps outer all plus 1
+	bindsym Shift+minus	gaps outer all minus 1
+	bindsym Shift+0		gaps outer all set 0
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
